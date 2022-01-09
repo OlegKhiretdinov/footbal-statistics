@@ -1,0 +1,8 @@
+.table {
+	border-collapse: collapse;
+}
+
+.tr {
+	border-bottom: 1px solid #5370a5;
+  background: #ebf2f4,
+}
