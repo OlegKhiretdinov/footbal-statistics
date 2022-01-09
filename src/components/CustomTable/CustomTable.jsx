@@ -13,8 +13,6 @@ const CustomTable = (props) => {
 
   const tableBody = store?.map(item => rowRender(item))
 
-  console.log(tableBody)
-
   return (
     <table className={cls.table}>
       <thead>

@@ -14,7 +14,6 @@ class TeamListStore {
   }
 
   setTeamList(id) {
-    console.log(id)
     fetch(`${url}/competitions/${id}/teams`, {
       headers: {
         'X-Auth-Token': token,
@@ -22,7 +21,6 @@ class TeamListStore {
     })
     .then(response => response.json())
     .then(data => this.teamList = data.teams)
-    .then(data => console.log(data))
   }
 }
 

@@ -28,8 +28,7 @@ class CompetitionStore {
           areaImg: item.area.ensignUrl
         }
       })
-      console.log(data.competitions)}
-    )
+    })
   }
 
 
