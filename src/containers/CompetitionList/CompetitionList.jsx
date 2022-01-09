@@ -29,8 +29,7 @@ const CompetitionList = () => {
     {
       columnHeader: "Competition",
       key: "Competition",
-      contentRender: storeItem => <a href={`/${storeItem.id}`}>{storeItem.competition}</a>
-      // contentRender: storeItem => <Link to={`/${storeItem.id}`}>{storeItem.competition}</Link>
+      contentRender: storeItem => <Link to={`/competition/${storeItem.id}`}>{storeItem.competition}</Link>
     }
   ]
   
