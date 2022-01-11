@@ -11,13 +11,13 @@ const TeamList = () => {
 
   useEffect(() => {
     TeamListStore.setTeamList(id)
-  }, [])
+  }, [id])
 
   const columnConfig = [
     {
       columnHeader: "Flag",
       key: "Flag",
-      contentRender: (storeItem) => (
+      contentRender: storeItem => (
         <img
           src={storeItem.crestUrl}
           alt={storeItem.name}
@@ -32,7 +32,14 @@ const TeamList = () => {
       contentRender: storeItem => (
         <Link to={`team/${storeItem.id}`}>{storeItem.name}</Link>
       )
-    }
+    },
+    {
+      columnHeader: "Calendar",
+      key: "Calendar",
+      contentRender: storeItem => (
+        <Link to={`/calendar/teams/${storeItem.id}`}>Calendar</Link>
+      )
+    },
   ]
   return <>
     <h1>Team list</h1>

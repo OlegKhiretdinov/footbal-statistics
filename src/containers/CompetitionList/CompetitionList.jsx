@@ -30,7 +30,14 @@ const CompetitionList = () => {
       columnHeader: "Competition",
       key: "Competition",
       contentRender: storeItem => <Link to={`/competition/${storeItem.id}`}>{storeItem.competition}</Link>
-    }
+    },
+    {
+      columnHeader: "Calendar",
+      key: "Calendar",
+      contentRender: storeItem => (
+        <Link to={`/calendar/competitions/${storeItem.id}`}>Calendar</Link>
+      )
+    },
   ]
   
   const store = CompetitionStore.competitionList
