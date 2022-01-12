@@ -1,7 +1,5 @@
 import { action, makeObservable, observable } from "mobx"
-
-const url = 'https://api.football-data.org/v2'
-const token = '5a3212400041421fada0041ca9629a7e'
+import { baseUrl, tokenKey } from "../utils/const"
 
 class MatchListStore {
   matchList = []
@@ -14,9 +12,9 @@ class MatchListStore {
   }
 
   setMatchList(id, type) {
-    fetch(`${url}/${type}/${id}/matches/`, {
+    fetch(`${baseUrl}/${type}/${id}/matches/`, {
       headers: {
-        'X-Auth-Token': token,
+        'X-Auth-Token': tokenKey,
       }
     })
     .then(responce => responce.json())
