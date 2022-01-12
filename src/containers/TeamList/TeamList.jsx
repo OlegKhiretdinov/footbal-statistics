@@ -30,7 +30,7 @@ const TeamList = () => {
       columnHeader: "Name",
       key: "Name",
       contentRender: storeItem => (
-        <Link to={`team/${storeItem.id}`}>{storeItem.name}</Link>
+        <Link to={`/team/${storeItem.id}`}>{storeItem.name}</Link>
       )
     },
     {
