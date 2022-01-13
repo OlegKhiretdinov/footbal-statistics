@@ -1,4 +1,4 @@
-import cls from './CustomTable.module.css'
+import cls from './CustomTable.module.scss'
 
 const CustomTable = (props) => {
   const {columnConfig, store} = props

@@ -1,4 +1,4 @@
-import cls from "./Loader.module.css"
+import cls from "./Loader.module.scss"
 
 const Loader = () => {
   return(

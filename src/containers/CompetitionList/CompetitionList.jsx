@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import CustomTable from "../../components/CustomTable/CustomTable"
 import Loader from "../../components/Loader/Loader"
 import CompetitionStore from "../../store/CompetitionStore"
-import cls from './CompetitionList.module.css'
+import cls from './CompetitionList.module.scss'
 
 
 const CompetitionList = () => {

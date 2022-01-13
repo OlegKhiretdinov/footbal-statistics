@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite"
 import Loader from "../../components/Loader/Loader"
 import CustomTable from "../../components/CustomTable/CustomTable"
 import TeamListStore from "../../store/TeamListStore"
-import cls from "./TeamList.module.css"
+import cls from "./TeamList.module.scss"
 
 const TeamList = () => {
   const {id} = useParams()
