@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { observer } from "mobx-react-lite"
 import MatchListStore from "../../store/MatchListStore"
 
@@ -13,16 +13,27 @@ const  MatchList = () => {
 
   const table = store.map(match => (
     <div key={match.id} style={{padding: "15px"}}>
-      {match.competition?.name}
+      {match.competition && 
+      <Link to={`/competition/${match.competition.id}`}>
+        {match.competition.name}
+      </Link>}
       <div>{match.utcDate}</div>
       <div>{match.score.fullTime.homeTeam} : {match.score.fullTime.awayTeam}</div>
-      <div>{match.homeTeam.name} - {match.awayTeam.name}</div>
+      <div>
+        <Link to={`/team/${match.homeTeam.id}`}>
+          {match.homeTeam.name}
+        </Link>
+        {" - "}
+        <Link to={`/team/${match.awayTeam.id}`}>
+          {match.awayTeam.name}
+        </Link>
+      </div>
     </div>
   ))
 
   return (
     <>
-      <h1>{`${type} MatchList ${id}`}</h1>
+      <h1>{`${MatchListStore.name} MatchList `}</h1>
       {table}
     </>
   )

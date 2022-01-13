@@ -11,7 +11,7 @@ class TeamPageStore {
   }
 
   setTeamData(id) {
-    fetch(`${baseUrl}/teams/59`, {
+    fetch(`${baseUrl}/teams/${id}`, {
       headers: {
         'X-Auth-Token': tokenKey,
       }

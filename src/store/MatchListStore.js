@@ -3,10 +3,12 @@ import { baseUrl, tokenKey } from "../utils/const"
 
 class MatchListStore {
   matchList = []
+  name = ""
 
   constructor() {
     makeObservable(this, {
       matchList: observable,
+      name: observable,
       setMatchList: action,
     })
   }
@@ -18,7 +20,14 @@ class MatchListStore {
       }
     })
     .then(responce => responce.json())
-    .then(data => this.matchList = data.matches)
+    .then(data => {
+      this.matchList = data.matches
+      if(type === 'competitions') {
+        this.name = data.competition.name
+      } else {
+        this.name = ''
+      }
+    })
   }
 }
 

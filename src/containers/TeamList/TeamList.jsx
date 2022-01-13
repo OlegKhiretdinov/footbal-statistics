@@ -41,8 +41,10 @@ const TeamList = () => {
       )
     },
   ]
+
   return <>
-    <h1>Team list</h1>
+    <h1>{TeamListStore.competionName} Team list</h1>
+    <Link to={`/calendar/competitions/${id}`}>{TeamListStore.competionName} calendar</Link>
     <CustomTable  columnConfig={columnConfig} store={store} />
     </>
 }

@@ -3,10 +3,12 @@ import { baseUrl, tokenKey } from "../utils/const"
 
 class TeamListStore {
   teamList = []
+  competionName = ""
 
   constructor() {
     makeObservable(this, {
       teamList: observable,
+      competionName: observable,
       setTeamList: action,
     })
   }
@@ -18,7 +20,9 @@ class TeamListStore {
       }
     })
     .then(response => response.json())
-    .then(data => this.teamList = data.teams)
+    .then(data => {
+      this.competionName = data.competition.name
+      this.teamList = data.teams})
   }
 }
 
