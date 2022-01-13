@@ -1,8 +1,9 @@
 import { useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 import { observer } from "mobx-react-lite"
-import TeamListStore from "../../store/TeamListStore"
+import Loader from "../../components/Loader/Loader"
 import CustomTable from "../../components/CustomTable/CustomTable"
+import TeamListStore from "../../store/TeamListStore"
 import cls from "./TeamList.module.css"
 
 const TeamList = () => {
@@ -42,11 +43,16 @@ const TeamList = () => {
     },
   ]
 
-  return <>
-    <h1>{TeamListStore.competionName} Team list</h1>
-    <Link to={`/calendar/competitions/${id}`}>{TeamListStore.competionName} calendar</Link>
-    <CustomTable  columnConfig={columnConfig} store={store} />
-    </>
+  return <> 
+    {TeamListStore.isLoading
+      ? <Loader />
+      : <>
+      <h1>{TeamListStore.competionName} Team list</h1>
+      <Link to={`/calendar/competitions/${id}`}>{TeamListStore.competionName} calendar</Link>
+      <CustomTable  columnConfig={columnConfig} store={store} />
+      </>
+    }
+  </>
 }
 
 export default observer(TeamList)

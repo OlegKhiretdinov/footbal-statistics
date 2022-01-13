@@ -2,6 +2,7 @@ import { observer } from "mobx-react-lite"
 import { useEffect } from "react"
 import { Link } from "react-router-dom"
 import CustomTable from "../../components/CustomTable/CustomTable"
+import Loader from "../../components/Loader/Loader"
 import CompetitionStore from "../../store/CompetitionStore"
 import cls from './CompetitionList.module.css'
 
@@ -44,8 +45,11 @@ const CompetitionList = () => {
 
   return (
     <>
-      <h1>CompetitionList</h1>
-      {CompetitionStore ? <CustomTable columnConfig={columnConfig} store={store}/> : null}
+      <h1>Competition List</h1>
+      {CompetitionStore.isLoading
+      ? <Loader />
+      : <CustomTable columnConfig={columnConfig} store={store}/>
+    }
     </>
   )
 }

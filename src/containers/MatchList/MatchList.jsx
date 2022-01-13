@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 import { observer } from "mobx-react-lite"
 import MatchListStore from "../../store/MatchListStore"
+import Loader from "../../components/Loader/Loader"
 
 const  MatchList = () => {
   const {id, type} = useParams()
@@ -32,10 +33,12 @@ const  MatchList = () => {
   ))
 
   return (
-    <>
-      <h1>{`${MatchListStore.name} MatchList `}</h1>
-      {table}
-    </>
+    MatchListStore.isLoading
+    ? <Loader />
+    : <>
+        <h1>{`${MatchListStore.name} Match List `}</h1>
+        {table}
+      </>
   )
 }
 
