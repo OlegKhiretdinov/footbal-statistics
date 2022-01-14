@@ -12,7 +12,7 @@ function App() {
       <h1><Link to="/">European football leagues statistic</Link></h1>
       <Routes>
         <Route path="/" element={<CompetitionList />} />
-        <Route path="/competition/:id" element={<TeamList />} />
+        <Route path="/competition/:id/" element={<TeamList />} />
         <Route path="/calendar/:type/:id" element={<MatchList />} />
         <Route path="/team/:id" element={<TeamPage />} />
       </Routes>

@@ -1,16 +1,26 @@
 import { useEffect } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useSearchParams } from "react-router-dom"
 import { observer } from "mobx-react-lite"
 import MatchListStore from "../../store/MatchListStore"
 import Loader from "../../components/Loader/Loader"
+import SearchInput from "../../components/SearchInput/SearchInput"
+import { SEARCH } from "../../utils/const"
 
 const  MatchList = () => {
   const {id, type} = useParams()
-  const store = MatchListStore.matchList
-
+  const [searchParams] = useSearchParams()
+  const searchString = searchParams.get(SEARCH)
+  
   useEffect(() => {
     MatchListStore.setMatchList(id, type)
   }, [id, type])
+  
+  const store = searchString
+    ? MatchListStore.matchList.filter(item => (
+        item.homeTeam.name.includes(searchString)
+        || item.awayTeam.name.includes(searchString))
+      )
+    : MatchListStore.matchList
 
   const table = store.map(match => (
     <div key={match.id} style={{padding: "15px"}}>
@@ -37,6 +47,7 @@ const  MatchList = () => {
     ? <Loader />
     : <>
         <h1>{`${MatchListStore.name} Match List `}</h1>
+        <SearchInput />
         {table}
       </>
   )

@@ -1,14 +1,22 @@
 import { useEffect } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useSearchParams } from "react-router-dom"
 import { observer } from "mobx-react-lite"
 import Loader from "../../components/Loader/Loader"
 import CustomTable from "../../components/CustomTable/CustomTable"
+import SearchInput from "../../components/SearchInput/SearchInput"
 import TeamListStore from "../../store/TeamListStore"
+import { SEARCH } from "../../utils/const"
 import cls from "./TeamList.module.scss"
 
 const TeamList = () => {
   const {id} = useParams()
-  const store = TeamListStore.teamList
+  const [searchParams] = useSearchParams()
+  const searchString = searchParams.get(SEARCH)
+
+  const store = searchString
+    ? TeamListStore.teamList.filter(item => item.name.includes(searchString))
+    : TeamListStore.teamList
+
 
   useEffect(() => {
     TeamListStore.setTeamList(id)
@@ -48,6 +56,7 @@ const TeamList = () => {
       ? <Loader />
       : <>
       <h1>{TeamListStore.competionName} Team list</h1>
+      <SearchInput />
       <Link to={`/calendar/competitions/${id}`}>{TeamListStore.competionName} calendar</Link>
       <CustomTable  columnConfig={columnConfig} store={store} />
       </>
