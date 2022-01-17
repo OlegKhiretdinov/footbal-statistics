@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from "mobx"
-import { baseUrl, tokenKey } from "../utils/const"
+import { baseUrl, DATE_FROM, DATE_TO, tokenKey } from "../utils/const"
 
 class MatchListStore {
   matchList = []
@@ -15,9 +15,15 @@ class MatchListStore {
     })
   }
 
-  setMatchList(id, type) {
+  setMatchList(id, type, dateParams) {
+    let params = ""
+    
+    if (dateParams[DATE_FROM] && dateParams[DATE_TO]) {
+      params += `dateFrom=${dateParams[DATE_FROM]}&dateTo=${dateParams[DATE_TO]}`
+    }
+
     this.isLoading = true
-    fetch(`${baseUrl}/${type}/${id}/matches/`, {
+    fetch(`${baseUrl}/${type}/${id}/matches/?${params}`, {
       headers: {
         'X-Auth-Token': tokenKey,
       }

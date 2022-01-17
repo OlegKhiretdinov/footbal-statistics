@@ -1,26 +1,57 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Link, useParams, useSearchParams } from "react-router-dom"
 import { observer } from "mobx-react-lite"
 import MatchListStore from "../../store/MatchListStore"
 import Loader from "../../components/Loader/Loader"
 import SearchInput from "../../components/SearchInput/SearchInput"
-import { SEARCH } from "../../utils/const"
+import { DATE_FROM, DATE_TO, SEARCH } from "../../utils/const"
+import CustomRangeDatePicker from "../../components/CustomRangeDatePicker/CustomRangeDatePicker"
+import { urlStringToObject } from "../../utils/parseUrlParams"
+import { objDateToString } from "../../utils/utils"
 
 const  MatchList = () => {
   const {id, type} = useParams()
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const searchString = searchParams.get(SEARCH)
-  
+
+  const [dateFrom, setDateFrom] = useState(searchParams.get(DATE_FROM) && new Date(searchParams.get(DATE_FROM)))
+  const [dateTo, setDateTo] = useState(searchParams.get(DATE_TO) && new Date(searchParams.get(DATE_TO)))
+
+  const loadData = () => {
+    const dateParams = {
+      [DATE_FROM]: dateFrom && objDateToString(dateFrom),
+      [DATE_TO]: dateTo && objDateToString(dateTo),
+    }
+    MatchListStore.setMatchList(id, type, dateParams)
+  }
+
   useEffect(() => {
-    MatchListStore.setMatchList(id, type)
-  }, [id, type])
-  
+    loadData()
+  }, [])
+
   const store = searchString
     ? MatchListStore.matchList.filter(item => (
         item.homeTeam.name.includes(searchString)
         || item.awayTeam.name.includes(searchString))
       )
     : MatchListStore.matchList
+
+    const dateFilterHandler = (event) => {
+      event.preventDefault()
+      const paramsObj = urlStringToObject(searchParams.toString())
+
+      if(dateFrom && dateTo) {
+        setSearchParams({...paramsObj,
+          [DATE_FROM]: objDateToString(dateFrom),
+          [DATE_TO]: objDateToString(dateTo),
+        })
+      } else {
+        delete paramsObj[DATE_TO]
+        delete paramsObj[DATE_FROM]
+        setSearchParams(paramsObj)
+      }
+      loadData()
+    }
 
   const table = store.map(match => (
     <div key={match.id} style={{padding: "15px"}}>
@@ -48,6 +79,13 @@ const  MatchList = () => {
     : <>
         <h1>{`${MatchListStore.name} Match List `}</h1>
         <SearchInput />
+        <CustomRangeDatePicker
+          dateFrom={dateFrom && new Date(dateFrom)}
+          dateTo={dateTo && new Date(dateTo)}
+          dateFilterHandler={dateFilterHandler}
+          setDateFrom={setDateFrom}
+          setDateTo={setDateTo}
+        />
         {table}
       </>
   )
