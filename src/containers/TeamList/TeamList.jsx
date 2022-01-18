@@ -7,6 +7,7 @@ import SearchInput from "../../components/SearchInput/SearchInput"
 import TeamListStore from "../../store/TeamListStore"
 import { SEARCH } from "../../utils/const"
 import cls from "./TeamList.module.scss"
+import logo  from "../../assets/default_logo.svg"
 
 const TeamList = () => {
   const {id} = useParams()
@@ -26,11 +27,11 @@ const TeamList = () => {
     {
       columnHeader: "Flag",
       key: "Flag",
-      contentRender: storeItem => (
+      contentRender: ({crestUrl, name}) => (
         <img
-          src={storeItem.crestUrl}
-          alt={storeItem.name}
-          title={storeItem.name}
+          src={crestUrl || logo}
+          alt={name}
+          title={name}
           className={cls.image}
         />
       )
