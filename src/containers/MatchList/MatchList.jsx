@@ -53,13 +53,15 @@ const  MatchList = () => {
       loadData()
     }
 
+  const dateFarmat = {year: 'numeric', month: 'long', day: 'numeric'}
+
   const table = store.map(match => (
     <div key={match.id} style={{padding: "15px"}}>
       {match.competition && 
       <Link to={`/competition/${match.competition.id}`}>
         {match.competition.name}
       </Link>}
-      <div>{match.utcDate}</div>
+      <div>{new Date(match.utcDate).toLocaleDateString("en-US", dateFarmat)}</div>
       <div>{match.score.fullTime.homeTeam} : {match.score.fullTime.awayTeam}</div>
       <div>
         <Link to={`/team/${match.homeTeam.id}`}>
