@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Link, useParams, useSearchParams } from "react-router-dom"
 import { observer } from "mobx-react-lite"
 import MatchListStore from "../../store/MatchListStore"
@@ -17,17 +17,17 @@ const  MatchList = () => {
   const [dateFrom, setDateFrom] = useState(searchParams.get(DATE_FROM) && new Date(searchParams.get(DATE_FROM)))
   const [dateTo, setDateTo] = useState(searchParams.get(DATE_TO) && new Date(searchParams.get(DATE_TO)))
 
-  const loadData = () => {
+  const loadData = useCallback(() => {
     const dateParams = {
       [DATE_FROM]: dateFrom && objDateToString(dateFrom),
       [DATE_TO]: dateTo && objDateToString(dateTo),
     }
     MatchListStore.setMatchList(id, type, dateParams)
-  }
+  }, [dateFrom, dateTo, id, type])
 
   useEffect(() => {
     loadData()
-  }, [])
+  }, [loadData])
 
   const store = searchString
     ? MatchListStore.matchList.filter(item => (
@@ -56,7 +56,7 @@ const  MatchList = () => {
   const dateFarmat = {year: 'numeric', month: 'long', day: 'numeric'}
 
   const table = store.map(match => (
-    <div key={match.id} style={{padding: "15px"}}>
+    <div key={match.id}>
       {match.competition && 
       <Link to={`/competition/${match.competition.id}`}>
         {match.competition.name}

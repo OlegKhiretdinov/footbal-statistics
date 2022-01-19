@@ -11,7 +11,7 @@ const TeamPage = () => {
 
   useEffect(() => {
     TeamPageStore.setTeamData(id)
-  }, [])
+  }, [id])
 
   return (
     TeamPageStore.isLoading
