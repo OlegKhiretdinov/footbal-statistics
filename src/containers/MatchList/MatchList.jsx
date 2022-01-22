@@ -9,8 +9,8 @@ import CustomRangeDatePicker from "../../components/CustomRangeDatePicker/Custom
 import { urlStringToObject } from "../../utils/parseUrlParams"
 import MatchListItem from "./MatchListItem/MatchListItem"
 
-const  MatchList = () => {
-  const {id, type} = useParams()
+const MatchList = () => {
+  const { id, type } = useParams()
   const [filterParams, setFilterParams] = useSearchParams()
   const searchString = filterParams.get(SEARCH)
 
@@ -35,14 +35,15 @@ const  MatchList = () => {
     }
     MatchListStore.setMatchList(id, type, dateParams)
   }, [])
-    
+
   const store = searchString
-  ? MatchListStore.matchList.filter(item => (
-    item.homeTeam.name.includes(searchString)
-    || item.awayTeam.name.includes(searchString))
-    )
+    ? MatchListStore.matchList.filter(
+        (item) =>
+          item.homeTeam.name.includes(searchString) ||
+          item.awayTeam.name.includes(searchString)
+      )
     : MatchListStore.matchList
-      
+
   const dateFilterHandler = (event) => {
     event.preventDefault()
 
@@ -50,8 +51,9 @@ const  MatchList = () => {
     const dateFrom = event.target[0].value
     const dateTo = event.target[2].value
 
-    if(dateFrom && dateTo) {
-      setFilterParams({...paramsObj,
+    if (dateFrom && dateTo) {
+      setFilterParams({
+        ...paramsObj,
         [DATE_FROM]: dateFrom,
         [DATE_TO]: dateTo,
       })
@@ -69,21 +71,23 @@ const  MatchList = () => {
     MatchListStore.setMatchList(id, type, dateParams)
   }
 
-  const table = store?.map(match => <MatchListItem key={match.id} match={match} />)
+  const table = store?.map((match) => (
+    <MatchListItem key={match.id} match={match} />
+  ))
 
-  return (
-    MatchListStore.isLoading
-    ? <Loader />
-    : <>
-        <h1>{`${MatchListStore.name} Match List `}</h1>
-        <SearchInput />
-        <CustomRangeDatePicker
-          dateFilterHandler={dateFilterHandler}
-          initDateFrom={initDateFrom}
-          initDateTo={initDateTo}
-        />
-        {table}
-      </>
+  return MatchListStore.isLoading ? (
+    <Loader />
+  ) : (
+    <>
+      <h1>{`${MatchListStore.name} Match List `}</h1>
+      <SearchInput />
+      <CustomRangeDatePicker
+        dateFilterHandler={dateFilterHandler}
+        initDateFrom={initDateFrom}
+        initDateTo={initDateTo}
+      />
+      {table}
+    </>
   )
 }
 

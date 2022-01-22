@@ -6,8 +6,7 @@ import Loader from "../../components/Loader/Loader"
 import SearchInput from "../../components/SearchInput/SearchInput"
 import CompetitionStore from "../../store/CompetitionStore"
 import { SEARCH } from "../../utils/const"
-import cls from './CompetitionList.module.scss'
-
+import cls from "./CompetitionList.module.scss"
 
 const CompetitionList = () => {
   const [searchParams] = useSearchParams()
@@ -20,7 +19,7 @@ const CompetitionList = () => {
   const columnConfig = [
     {
       columnHeader: "Area",
-      key: 'Area',
+      key: "Area",
       contentRender: (storeItem) => (
         <div key={storeItem.id}>
           <img
@@ -30,34 +29,39 @@ const CompetitionList = () => {
             title={storeItem.areaName}
           />
         </div>
-      )
+      ),
     },
     {
       columnHeader: "Competition",
       key: "Competition",
-      contentRender: storeItem => <Link to={`/competition/${storeItem.id}`}>{storeItem.competition}</Link>
+      contentRender: (storeItem) => (
+        <Link to={`/competition/${storeItem.id}`}>{storeItem.competition}</Link>
+      ),
     },
     {
       columnHeader: "Calendar",
       key: "Calendar",
-      contentRender: storeItem => (
+      contentRender: (storeItem) => (
         <Link to={`/calendar/competitions/${storeItem.id}`}>Calendar</Link>
-      )
+      ),
     },
   ]
-  
+
   const store = searchString
-    ? CompetitionStore.competitionList.filter(item => item.competition.includes(searchString))
+    ? CompetitionStore.competitionList.filter((item) =>
+        item.competition.includes(searchString)
+      )
     : CompetitionStore.competitionList
 
   return (
     <>
       <h1>Competition List</h1>
       <SearchInput />
-      {CompetitionStore.isLoading
-      ? <Loader />
-      : <CustomTable columnConfig={columnConfig} store={store}/>
-    }
+      {CompetitionStore.isLoading ? (
+        <Loader />
+      ) : (
+        <CustomTable columnConfig={columnConfig} store={store} />
+      )}
     </>
   )
 }

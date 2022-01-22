@@ -17,7 +17,7 @@ class MatchListStore {
 
   setMatchList(id, type, dateParams) {
     let params = ""
-    
+
     if (dateParams[DATE_FROM] && dateParams[DATE_TO]) {
       params += `dateFrom=${dateParams[DATE_FROM]}&dateTo=${dateParams[DATE_TO]}`
     }
@@ -25,19 +25,21 @@ class MatchListStore {
     this.isLoading = true
     fetch(`${baseUrl}/${type}/${id}/matches/?${params}`, {
       headers: {
-        'X-Auth-Token': tokenKey,
-      }
+        "X-Auth-Token": tokenKey,
+      },
     })
-    .then(responce => responce.json())
-    .then(action(data => {
-      this.matchList = data.matches
-      if(type === 'competitions') {
-        this.name = data.competition.name
-      } else {
-        this.name = ''
-      }
-      this.isLoading = false
-    }))
+      .then((responce) => responce.json())
+      .then(
+        action((data) => {
+          this.matchList = data.matches
+          if (type === "competitions") {
+            this.name = data.competition.name
+          } else {
+            this.name = ""
+          }
+          this.isLoading = false
+        })
+      )
   }
 }
 

@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useState } from "react"
 import ReactDatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css";
+import "react-datepicker/dist/react-datepicker.css"
 
 const CustomRangeDatePicker = (props) => {
-  const {dateFilterHandler, initDateFrom, initDateTo} = props
+  const { dateFilterHandler, initDateFrom, initDateTo } = props
 
   const [dateFrom, setDateFrom] = useState(initDateFrom)
   const [dateTo, setDateTo] = useState(initDateTo)
 
-  return(
+  return (
     <form onSubmit={dateFilterHandler}>
       <div>
         <ReactDatePicker
@@ -31,7 +31,9 @@ const CustomRangeDatePicker = (props) => {
           dateFormat="yyyy-MM-dd"
           placeholderText="Select date"
         />
-        <button type="submit" disabled={!dateFrom !== !dateTo }>Filter</button>
+        <button type="submit" disabled={!dateFrom !== !dateTo}>
+          Filter
+        </button>
       </div>
     </form>
   )

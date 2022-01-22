@@ -9,7 +9,7 @@ const SearchInput = () => {
     const value = e.target.value
     const paramsObj = urlStringToObject(searchParams.toString())
     if (value) {
-      setSearchParams({...paramsObj, [SEARCH]: value})
+      setSearchParams({ ...paramsObj, [SEARCH]: value })
     } else {
       delete paramsObj[SEARCH]
       setSearchParams(paramsObj)

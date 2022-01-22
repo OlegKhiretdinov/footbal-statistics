@@ -17,14 +17,16 @@ class TeamPageStore {
     this.isLoading = true
     fetch(`${baseUrl}/teams/${id}`, {
       headers: {
-        'X-Auth-Token': tokenKey,
-      }
+        "X-Auth-Token": tokenKey,
+      },
     })
-    .then(response => response.json())
-    .then(action(data => {
-      this.teamData = data
-      this.isLoading = false
-    }))
+      .then((response) => response.json())
+      .then(
+        action((data) => {
+          this.teamData = data
+          this.isLoading = false
+        })
+      )
   }
 }
 

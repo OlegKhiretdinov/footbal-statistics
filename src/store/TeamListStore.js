@@ -19,15 +19,17 @@ class TeamListStore {
     this.isLoading = true
     fetch(`${baseUrl}/competitions/${id}/teams`, {
       headers: {
-        'X-Auth-Token': tokenKey,
-      }
+        "X-Auth-Token": tokenKey,
+      },
     })
-    .then(response => response.json())
-    .then(action(data => {
-      this.competionName = data.competition.name
-      this.teamList = data.teams
-      this.isLoading = false
-    }))
+      .then((response) => response.json())
+      .then(
+        action((data) => {
+          this.competionName = data.competition.name
+          this.teamList = data.teams
+          this.isLoading = false
+        })
+      )
   }
 }
 
