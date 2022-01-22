@@ -6,3 +6,7 @@ export const tokenKey = '5a3212400041421fada0041ca9629a7e'
 export const SEARCH = "search"
 export const DATE_FROM = "date_from"
 export const DATE_TO = "date_to"
+
+// Match status
+export const FINISHED = "FINISHED"
+export const POSTPONED = "POSTPONED"

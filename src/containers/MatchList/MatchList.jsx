@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { Link, useParams, useSearchParams } from "react-router-dom"
+import { useParams, useSearchParams } from "react-router-dom"
 import { observer } from "mobx-react-lite"
 import MatchListStore from "../../store/MatchListStore"
 import Loader from "../../components/Loader/Loader"
@@ -7,6 +7,7 @@ import SearchInput from "../../components/SearchInput/SearchInput"
 import { DATE_FROM, DATE_TO, SEARCH } from "../../utils/const"
 import CustomRangeDatePicker from "../../components/CustomRangeDatePicker/CustomRangeDatePicker"
 import { urlStringToObject } from "../../utils/parseUrlParams"
+import MatchListItem from "./MatchListItem/MatchListItem"
 
 const  MatchList = () => {
   const {id, type} = useParams()
@@ -68,27 +69,7 @@ const  MatchList = () => {
     MatchListStore.setMatchList(id, type, dateParams)
   }
 
-  const dateFormat = {year: 'numeric', month: 'long', day: 'numeric'}
-
-  const table = store?.map(match => (
-    <div key={match.id}>
-      {match.competition && 
-      <Link to={`/competition/${match.competition.id}`}>
-        {match.competition.name}
-      </Link>}
-      <div>{new Date(match.utcDate).toLocaleDateString("en-US", dateFormat)}</div>
-      <div>{match.score.fullTime.homeTeam} : {match.score.fullTime.awayTeam}</div>
-      <div>
-        <Link to={`/team/${match.homeTeam.id}`}>
-          {match.homeTeam.name}
-        </Link>
-        {" - "}
-        <Link to={`/team/${match.awayTeam.id}`}>
-          {match.awayTeam.name}
-        </Link>
-      </div>
-    </div>
-  ))
+  const table = store?.map(match => <MatchListItem key={match.id} match={match} />)
 
   return (
     MatchListStore.isLoading
