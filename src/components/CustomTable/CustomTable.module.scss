@@ -5,4 +5,19 @@
 .tr {
   border-bottom: 1px solid #5370a5;
   background: #ebf2f4;
+  &:hover {
+    background: white;
+  }
+}
+
+.th {
+  padding: 15px 0 5px;
+}
+
+.td {
+  padding: 5px;
+  a {
+    color: #2f71ec;
+    text-decoration: none;
+  }
 }

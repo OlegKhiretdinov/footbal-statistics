@@ -8,6 +8,7 @@ import TeamListStore from "../../store/TeamListStore"
 import { SEARCH } from "../../utils/const"
 import cls from "./TeamList.module.scss"
 import logo from "../../assets/default_logo.svg"
+import calendarSvg from "../../assets/calendar.svg"
 
 const TeamList = () => {
   const { id } = useParams()
@@ -46,7 +47,9 @@ const TeamList = () => {
       columnHeader: "Calendar",
       key: "Calendar",
       contentRender: (storeItem) => (
-        <Link to={`/calendar/teams/${storeItem.id}`}>Calendar</Link>
+        <Link to={`/calendar/teams/${storeItem.id}`}>
+          <img src={calendarSvg} alt="Calendar" />
+        </Link>
       ),
     },
   ]
@@ -58,9 +61,9 @@ const TeamList = () => {
       ) : (
         <>
           <h1>{TeamListStore.competionName} Team list</h1>
-          <SearchInput />
-          <Link to={`/calendar/competitions/${id}`}>
-            {TeamListStore.competionName} calendar
+          <SearchInput placeholder={"find team(just start typing)"} />
+          <Link to={`/calendar/competitions/${id}`} className={cls.link}>
+            All {TeamListStore.competionName} matches
           </Link>
           <CustomTable columnConfig={columnConfig} store={store} />
         </>

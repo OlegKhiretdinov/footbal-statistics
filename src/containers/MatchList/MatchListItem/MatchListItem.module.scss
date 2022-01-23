@@ -1,0 +1,40 @@
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #000;
+  &:last-child {
+    border: none;
+  }
+}
+
+.link {
+  color: #2f71ec;
+  text-decoration: none;
+}
+
+.teamNameWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  div:first-child {
+    text-align: right;
+  }
+  p {
+    margin: 0;
+  }
+}
+
+.teamName {
+  width: 50%;
+  padding: 5px;
+}
+
+.matchItemHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  width: 100%;
+}

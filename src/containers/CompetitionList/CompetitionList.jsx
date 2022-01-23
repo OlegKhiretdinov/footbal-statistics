@@ -7,6 +7,7 @@ import SearchInput from "../../components/SearchInput/SearchInput"
 import CompetitionStore from "../../store/CompetitionStore"
 import { SEARCH } from "../../utils/const"
 import cls from "./CompetitionList.module.scss"
+import calendarSvg from "../../assets/calendar.svg"
 
 const CompetitionList = () => {
   const [searchParams] = useSearchParams()
@@ -42,7 +43,9 @@ const CompetitionList = () => {
       columnHeader: "Calendar",
       key: "Calendar",
       contentRender: (storeItem) => (
-        <Link to={`/calendar/competitions/${storeItem.id}`}>Calendar</Link>
+        <Link to={`/calendar/competitions/${storeItem.id}`}>
+          <img src={calendarSvg} alt="Calendar" />
+        </Link>
       ),
     },
   ]
@@ -56,7 +59,7 @@ const CompetitionList = () => {
   return (
     <>
       <h1>Competition List</h1>
-      <SearchInput />
+      <SearchInput placeholder={"find liague(just start typing)"} />
       {CompetitionStore.isLoading ? (
         <Loader />
       ) : (

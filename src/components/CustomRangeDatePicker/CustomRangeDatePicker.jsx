@@ -1,6 +1,7 @@
 import { useState } from "react"
 import ReactDatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
+import cls from "./CustomRangeDatePicker.module.scss"
 
 const CustomRangeDatePicker = (props) => {
   const { dateFilterHandler, initDateFrom, initDateTo } = props
@@ -9,9 +10,10 @@ const CustomRangeDatePicker = (props) => {
   const [dateTo, setDateTo] = useState(initDateTo)
 
   return (
-    <form onSubmit={dateFilterHandler}>
-      <div>
+    <form className={cls.rangePicker} onSubmit={dateFilterHandler}>
+      <div className={cls.inputWrapper}>
         <ReactDatePicker
+          className={cls.input}
           maxDate={dateTo}
           onChange={(date) => setDateFrom(date)}
           selected={dateFrom}
@@ -19,9 +21,12 @@ const CustomRangeDatePicker = (props) => {
           dropdownMode="select"
           isClearable
           dateFormat="yyyy-MM-dd"
-          placeholderText="Select date"
+          placeholderText="Select date from"
         />
+      </div>
+      <div className={cls.inputWrapper}>
         <ReactDatePicker
+          className={cls.input}
           minDate={dateFrom}
           onChange={(date) => setDateTo(date)}
           selected={dateTo}
@@ -29,12 +34,17 @@ const CustomRangeDatePicker = (props) => {
           dropdownMode="select"
           isClearable
           dateFormat="yyyy-MM-dd"
-          placeholderText="Select date"
+          placeholderText="Select date to"
         />
-        <button type="submit" disabled={!dateFrom !== !dateTo}>
-          Filter
-        </button>
       </div>
+
+      <button
+        className={cls.filterButton}
+        type="submit"
+        disabled={!dateFrom !== !dateTo}
+      >
+        Filter
+      </button>
     </form>
   )
 }

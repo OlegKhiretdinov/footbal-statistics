@@ -8,6 +8,7 @@ import { DATE_FROM, DATE_TO, SEARCH } from "../../utils/const"
 import CustomRangeDatePicker from "../../components/CustomRangeDatePicker/CustomRangeDatePicker"
 import { urlStringToObject } from "../../utils/parseUrlParams"
 import MatchListItem from "./MatchListItem/MatchListItem"
+import cls from "./MatchList.module.scss"
 
 const MatchList = () => {
   const { id, type } = useParams()
@@ -80,13 +81,15 @@ const MatchList = () => {
   ) : (
     <>
       <h1>{`${MatchListStore.name} Match List `}</h1>
-      <SearchInput />
+      <p className={cls.paragraph}>You can find team</p>
+      <SearchInput placeholder={"Find team"} />
+      <p className={cls.paragraph}>or select date</p>
       <CustomRangeDatePicker
         dateFilterHandler={dateFilterHandler}
         initDateFrom={initDateFrom}
         initDateTo={initDateTo}
       />
-      {table}
+      <div className={cls.table}>{table}</div>
     </>
   )
 }

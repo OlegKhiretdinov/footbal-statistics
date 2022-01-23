@@ -4,13 +4,17 @@ const CustomTable = (props) => {
   const { columnConfig, store } = props
 
   const tableHeader = columnConfig.map((item, index) => (
-    <th key={index}>{item.columnHeader}</th>
+    <th className={cls.th} key={index}>
+      {item.columnHeader}
+    </th>
   ))
 
   const rowRender = (rowContent) => (
     <tr className={cls.tr} key={rowContent.id}>
       {columnConfig.map((item) => (
-        <td key={item.key}>{item.contentRender(rowContent)}</td>
+        <td className={cls.td} key={item.key}>
+          {item.contentRender(rowContent)}
+        </td>
       ))}
     </tr>
   )

@@ -1,0 +1,13 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  margin: 15px 10px 5px;
+  a {
+    text-decoration: none;
+    color: #5454bb;
+  }
+}
